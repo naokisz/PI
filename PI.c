@@ -42,9 +42,13 @@ int main(void) {
 	for(;;) {
 		qsort(geen, NUM_OF_GEEN, sizeof(GEEN), comp);
 
+		if(optimum_solution == 0) {
+			printf("初期最適解：%.25lf\n", geen[1].fitness);
+		}
+
 		if(optimum_solution != geen[1].fitness) {
 			optimum_solution = geen[1].fitness;
-			printf("最適解が変更されました。M_PIとの差：%.15lf", optimum_solution);
+			printf("最適解が変更されました。M_PIとの差：%.15lf\n", optimum_solution);
 		}
 
 		for(i = 0; i < selection; i++) {
