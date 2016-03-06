@@ -43,7 +43,7 @@ int main(void) {
 		qsort(geen, NUM_OF_GEEN, sizeof(GEEN), comp);
 
 		if(optimum_solution == 0) {
-			printf("初期最適解：%.25lf\n", geen[1].fitness);
+			printf("初期最適解：%.15lf\n", geen[1].fitness);
 		}
 
 		if(optimum_solution != geen[1].fitness) {
@@ -86,20 +86,21 @@ int main(void) {
 			}
 		}
 
-		for(i = 0; i < NUM_OF_GEEN; i++) {
+/*		for(i = 0; i < NUM_OF_GEEN - 1; i++) {
 
 			for(j = 0; j < NUM_OF_VALUE; j++) {
 				if(mutation = ((double)rand() / RAND_MAX) * 100) {
-					geen[i].x[j] = (double)rand() / RAND_MAX;
+					geen[i + 1].x[j] = (double)rand() / RAND_MAX;
 				}
 			}
 
 			for(j = 0; j < NUM_OF_VALUE; j++) {
 				if(mutation = ((double)rand() / RAND_MAX) * 100) {
-					geen[i].y[j] = (double)rand() / RAND_MAX;
+					geen[i + 1].y[j] = (double)rand() / RAND_MAX;
 				}
 			}
 		}
+*/
 
 		calc_fitness();
 	}
@@ -136,7 +137,7 @@ int calc_fitness(void) {
 			}
 		}
 		//遺伝子からの結果がどのぐらい円周率に近いか（適応度）を計算
-		geen[i].fitness = fabs(M_PI - ((4 * within_circle) / NUM_OF_VALUE));
+		geen[i].fitness = fabs(M_PI - ((4 * (double)within_circle) / NUM_OF_VALUE));
 	}
 
 	return 0;
