@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <unistd.h>
 
 #define NUM_OF_VALUE 100 //XXX 値変えるとsegfaultする
 #define NUM_OF_GEEN 20
@@ -42,7 +43,9 @@ int main(void) {
 	for(;;) {
 		qsort(geen, NUM_OF_GEEN, sizeof(GEEN), comp);
 
-		if(optimum_solution == 0) {
+		printf("M_PIとの差：%.15lf\n", geen[1].fitness);
+		sleep(1);
+/*		if(optimum_solution == 0) {
 			printf("初期最適解：%.15lf\n", geen[1].fitness);
 		}
 
@@ -50,6 +53,7 @@ int main(void) {
 			optimum_solution = geen[1].fitness;
 			printf("最適解が変更されました。M_PIとの差：%.15lf\n", optimum_solution);
 		}
+*/
 
 		for(i = 0; i < selection; i++) {
 
@@ -85,6 +89,7 @@ int main(void) {
 				geen[NUM_OF_GEEN - selection + i].y[cross_end + j] = geen[parent2].x[cross_end + j];
 			}
 		}
+
 /*突然変異 XXX:エリートの値が何故か変わってしまう*/
 /*		for(i = 0; i < NUM_OF_GEEN - 1; i++) {
 
@@ -139,6 +144,8 @@ int calc_fitness(void) {
 		//遺伝子からの結果がどのぐらい円周率に近いか（適応度）を計算
 		geen[i].fitness = fabs(M_PI - ((4 * (double)within_circle) / NUM_OF_VALUE));
 	}
+
+	printf("円周率：%.15lf\n",(4 * (double)within_circle) / NUM_OF_VALUE);
 
 	return 0;
 }
