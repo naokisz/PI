@@ -54,7 +54,61 @@ int main(void) {
 			printf("最適解が変更されました。M_PIとの差：%.15lf\n", optimum_solution);
 		}
 */
+
+		for(i = 0; i < selection; i++) {
+
+			/*二点交叉する点を決めている*/
+			for(;;) {
+				cross_start = (int)(((double)rand() / RAND_MAX) * NUM_OF_GEEN);
+				cross_end = (int)(((double)rand() / RAND_MAX) * NUM_OF_GEEN);
+
+				if(cross_start < cross_end) break;
+				else if(cross_end < cross_start) {
+					tmp = cross_start;
+					cross_start = cross_end;
+					cross_end = tmp;
+				}
+			}
+
+			/*交叉する親を決めてから淘汰する遺伝子を二点交叉して上書き*/
+			parent1 = (int)(((double)rand() / RAND_MAX) * (NUM_OF_GEEN - selection - 1) + 1);
+			parent2 = (int)(((double)rand() / RAND_MAX) * (NUM_OF_GEEN - selection - 1) + 1);
+
+			for(j = 0; j < cross_start; j++) {
+				geen[NUM_OF_GEEN - selection + i].x[j] = geen[parent1].y[j];
+				geen[NUM_OF_GEEN - selection + i].y[j] = geen[parent2].x[j];
+			}
+
+			for(j = 0; j < (cross_end - cross_start) ; j++) {
+				geen[NUM_OF_GEEN - selection + i].x[cross_start + j] = geen[parent1].x[cross_start + j];
+				geen[NUM_OF_GEEN - selection + i].y[cross_start + j] = geen[parent2].y[cross_start + j];
+			}
+			
+			for(j = 0; j < (NUM_OF_VALUE - cross_end) ; j++) {
+				geen[NUM_OF_GEEN - selection + i].x[cross_end + j] = geen[parent1].y[cross_end + j];
+				geen[NUM_OF_GEEN - selection + i].y[cross_end + j] = geen[parent2].x[cross_end + j];
+			}
 		}
+
+/*突然変異 XXX:エリートの値が何故か変わってしまう*/
+/*		for(i = 0; i < NUM_OF_GEEN - 1; i++) {
+
+			for(j = 0; j < NUM_OF_VALUE; j++) {
+				if(mutation = ((double)rand() / RAND_MAX) * 100) {
+					geen[i + 1].x[j] = (double)rand() / RAND_MAX;
+				}
+			}
+
+			for(j = 0; j < NUM_OF_VALUE; j++) {
+				if(mutation = ((double)rand() / RAND_MAX) * 100) {
+					geen[i + 1].y[j] = (double)rand() / RAND_MAX;
+				}
+			}
+		}
+*/
+
+		calc_fitness();
+	}
 
 	return 0;
 }
