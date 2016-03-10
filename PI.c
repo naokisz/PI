@@ -3,7 +3,7 @@
 #include <time.h>
 #include <math.h>
 
-#define NUM_OF_VALUE 100
+#define NUM_OF_VALUE 100 //XXX 値変えるとsegfaultする
 #define NUM_OF_GEEN 20
 
 typedef struct {
@@ -25,7 +25,7 @@ int main(void) {
 	double optimum_solution = 0;
 
 	/*TODO selectionが奇数の時にバグが起こらないか調べる*/
-	const int selection = 4; //淘汰する遺伝子の数＝交配する遺伝子の数×２
+	const int selection = 16; //淘汰する遺伝子の数＝交配する遺伝子の数×２
 
 	srand(time(NULL));
 
@@ -85,7 +85,7 @@ int main(void) {
 				geen[NUM_OF_GEEN - selection + i].y[cross_end + j] = geen[parent2].x[cross_end + j];
 			}
 		}
-
+/*突然変異 XXX:エリートの値が何故か変わってしまう*/
 /*		for(i = 0; i < NUM_OF_GEEN - 1; i++) {
 
 			for(j = 0; j < NUM_OF_VALUE; j++) {
