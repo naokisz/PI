@@ -9,7 +9,9 @@
 C言語の標準ライブラリ関数しか使っていないので、cloneして、ソースコードをgccでコンパイルした後、実行してください。
 
 	git clone https://github.com/naokisz/PI.git
+
 	gcc -o PI PI.c -lm
+
 	./PI
 
 ##ライセンス
