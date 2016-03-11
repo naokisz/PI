@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <string.h>
 
 #define NUM_OF_GEEN 20
 
@@ -29,18 +30,21 @@ int main(int argc, char *argv[]) {
 
 	printf("\n円周率計算！\n\n");
 
-	if(argv[1] == "--help") {
+	if(argc == 2 && strcmp(argv[1],"--help") == 0) {
+
 		printf("ヘルプ\n\n");
 		printf("このプログラムについて\n");
 		printf("モンテカルロ法の改良版みたいな方法で円周率を求めます。\n\n");
 		printf("オプション\n");
 		printf("-n 数字 ：数字で指定された点の数で計算を開始します。\n");
-		printf("--help ：このヘルプを表示します\n");
+		printf("--help ：このヘルプを表示します。\n\n");
+
+		return 0;
 	}
 
 	for(;;) {
 
-		if(argv[1] == "-n") {
+		if(argc == 3 && strcmp(argv[1],"-n") == 0) {
 			num_of_point = atoi(argv[2]);
 			break;
 		}
@@ -102,6 +106,11 @@ int main(int argc, char *argv[]) {
 		}
 
 		calc_fitness();
+	}
+
+	for(i = 0; i < NUM_OF_GEEN; i++) {
+		free(geen[i].x);
+		free(geen[i].y);
 	}
 
 	return 0;
