@@ -19,7 +19,7 @@ C言語の標準ライブラリ関数しか使っていないので、cloneし�
 
 	git clone https://github.com/naokisz/PI.git
 
-	gcc -lm -o PI PI.c
+	gcc -o PI PI.c -lm
 
 	./PI
 
